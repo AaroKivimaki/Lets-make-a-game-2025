@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
@@ -30,6 +31,7 @@ public class MonsterAI : MonoBehaviour
         Vector3 direction = (player.position - transform.position).normalized;
         RaycastHit hit;
 
+        //Löydä pelaaja
         if (Physics.Raycast(transform.position + rayCastOffSet, direction, out hit, sightDistance))
         {
             if (hit.collider.gameObject.tag == "Player")
@@ -56,6 +58,7 @@ public class MonsterAI : MonoBehaviour
             ai.speed = walkSpeed;
             if (ai.remainingDistance <= ai.stoppingDistance)
             {
+                //Patrolli
                 randNum2 = Random.Range(0, 2);
                 if(randNum2 == 0)
                 {
@@ -67,8 +70,8 @@ public class MonsterAI : MonoBehaviour
                     //aiAnim.ResetTrigger("walk");
                     //aiAnim.SetTrigger("idle");
                     ai.speed = 0;
-                    //StopCoroutine("stayIdle");
-                    //StartCoroutine("stayIdle");
+                    StopCoroutine("StayIdle");
+                    StartCoroutine("StayIdle");
                     walking = false;
                 }
             }
@@ -77,13 +80,13 @@ public class MonsterAI : MonoBehaviour
         void CaughtPlayer()
         {
                 walking = false;
-                //StopCoroutine("stayIdle");
-                //StopCoroutine("chaseRoutine");
-                //StartCoroutine("chaseRoutine");
-                //aiAnim.ResetTrigger("walk");
-                //aiAnim.ResetTrigger("idle");
-                //aiAnim.SetTrigger("sprint");
-                chasing = true;
+            //StopCoroutine("StayIdle");
+            StopCoroutine("ChaseRoutine");
+            StartCoroutine("ChaseRoutine");
+            //aiAnim.ResetTrigger("walk");
+            //aiAnim.ResetTrigger("idle");
+            //aiAnim.SetTrigger("sprint");
+            chasing = true;
         }
 
         void ChasePlayer()
@@ -99,25 +102,25 @@ public class MonsterAI : MonoBehaviour
                 chasing = false;
             }
         }
-    //IEnumerator stayIdle()
-    //{
-    //    idleTime = Random.Range(minIdleTime, maxIdleTime);
-    //    yield return new WaitForSeconds(idleTime);
-    //    walking = true;
-    //    randNum = Random.Range(0, destinationAmount);
-    //    currentDestination = destinations[randNum];
-    //}
-    //IEnumerator chaseRoutine()
-    //{
-    //    chaseTime = Random.Range(minChaseTime, maxChaseTime);
-    //    yield return new WaitForSeconds(chaseTime);
-    //    walking = true;
-    //    chasing = false;
-    //    randNum = Random.Range(0, destinationAmount);
-    //    currentDestination = destinations[randNum];
-    //    aiAnim.ResetTrigger("sprint");
-    //    aiAnim.SetTrigger("walk");
-    //}
+    IEnumerator StayIdle()
+    {
+        idleTime = Random.Range(minIdleTime, maxIdleTime);
+        yield return new WaitForSeconds(idleTime);
+        walking = true;
+        randNum = Random.Range(0, destinationAmount);
+        currentDestination = destinations[randNum];
+    }
+    IEnumerator ChaseRoutine()
+    {
+        chaseTime = Random.Range(minChaseTime, maxChaseTime);
+        yield return new WaitForSeconds(chaseTime);
+        walking = true;
+        chasing = false;
+        randNum = Random.Range(0, destinationAmount);
+        currentDestination = destinations[randNum];
+        //aiAnim.ResetTrigger("sprint");
+        //aiAnim.SetTrigger("walk");
+    }
     //IEnumerator deathRoutine()
     //{
 
