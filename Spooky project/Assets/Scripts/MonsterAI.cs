@@ -29,6 +29,7 @@ public class MonsterAI : MonoBehaviour
     {
         Vector3 direction = (player.position - transform.position).normalized;
         RaycastHit hit;
+
         if (Physics.Raycast(transform.position + rayCastOffSet, direction, out hit, sightDistance))
         {
             if (hit.collider.gameObject.tag == "Player")
