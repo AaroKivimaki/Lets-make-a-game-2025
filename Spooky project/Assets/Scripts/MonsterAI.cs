@@ -9,13 +9,17 @@ public class MonsterAI : MonoBehaviour
     public NavMeshAgent ai;
     public NavMeshSurface surface;
     public List<Transform> destinations;
+
     public Animator aiAnim;
+
     public float walkSpeed, chaseSpeed, minIdleTime, maxIdleTime, idleTime, sightDistance, catchDistance, chaseTime, minChaseTime, maxChaseTime;
     public int destinationAmount;
     public bool walking, chasing;
+
     public Transform player;
     Transform currentDestination;
     Vector3 dest;
+
     int randNum, randNum2;
     public Vector3 rayCastOffSet;
 
@@ -28,7 +32,7 @@ public class MonsterAI : MonoBehaviour
 
     void Update()
     {
-        Vector3 direction = (player.position - transform.position).normalized;
+        Vector3 direction = (player.position - transform.position);
         RaycastHit hit;
 
         //Löydä pelaaja
@@ -36,6 +40,7 @@ public class MonsterAI : MonoBehaviour
         {
             if (hit.collider.gameObject.tag == "Player")
             {
+                Debug.Log("Osui");
                 CaughtPlayer();
             }
         }
@@ -46,14 +51,7 @@ public class MonsterAI : MonoBehaviour
 
         if (walking == true)
         {
-            if (currentDestination != null)
-            {
-                dest = currentDestination.position;
-            }
-            else
-            {
-                Debug.LogError("MonsterAI: currentDestination is not assigned!");
-            }
+            dest = currentDestination.position;
             ai.destination = dest;
             ai.speed = walkSpeed;
             if (ai.remainingDistance <= ai.stoppingDistance)
@@ -79,8 +77,8 @@ public class MonsterAI : MonoBehaviour
     }
         void CaughtPlayer()
         {
-                walking = false;
-            //StopCoroutine("StayIdle");
+            walking = false;
+            StopCoroutine("StayIdle");
             StopCoroutine("ChaseRoutine");
             StartCoroutine("ChaseRoutine");
             //aiAnim.ResetTrigger("walk");
