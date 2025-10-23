@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
@@ -51,9 +52,47 @@ public class MonsterAI : MonoBehaviour
 
         if (walking == true)
         {
+            Walk();
+        }
+    }
+        void CaughtPlayer()
+        {
+            walking = false;
+            StopCoroutine("StayIdle");
+            StopCoroutine("ChaseRoutine");
+            StartCoroutine("ChaseRoutine");
+            chasing = true;
+        }
+
+        void ChasePlayer()
+        {
+            dest = player.position;
+            ai.destination = dest;
+            ai.speed = chaseSpeed;
+            aiAnim.ResetTrigger("walk");
+            aiAnim.ResetTrigger("idle");
+            aiAnim.SetTrigger("chase");
+
+            if (ai.remainingDistance <= catchDistance)
+            {
+                //player.gameObject.SetActive(false);
+                aiAnim.ResetTrigger("idle");
+                aiAnim.ResetTrigger("walk");
+                aiAnim.ResetTrigger("chase");
+                //StartCoroutine(deathRoutine());
+                chasing = false;
+            }
+        }
+
+        void Walk()
+    {
             dest = currentDestination.position;
             ai.destination = dest;
             ai.speed = walkSpeed;
+            aiAnim.ResetTrigger("chase");
+            aiAnim.ResetTrigger("idle");
+            aiAnim.SetTrigger("walk");
+
             if (ai.remainingDistance <= ai.stoppingDistance)
             {
                 //Patrolli
@@ -65,35 +104,8 @@ public class MonsterAI : MonoBehaviour
                 StartCoroutine("StayIdle");
                 walking = false;
             }
-        }
-    }
-        void CaughtPlayer()
-        {
-            walking = false;
-            StopCoroutine("StayIdle");
-            StopCoroutine("ChaseRoutine");
-            StartCoroutine("ChaseRoutine");
-            aiAnim.ResetTrigger("walk");
-            aiAnim.ResetTrigger("idle");
-            aiAnim.SetTrigger("chase");
-        chasing = true;
-        }
 
-        void ChasePlayer()
-        {
-            dest = player.position;
-            ai.destination = dest;
-            ai.speed = chaseSpeed;
-            if (ai.remainingDistance <= catchDistance)
-            {
-                //player.gameObject.SetActive(false);
-                aiAnim.ResetTrigger("idle");
-                aiAnim.ResetTrigger("walk");
-                aiAnim.ResetTrigger("sprint");
-                //StartCoroutine(deathRoutine());
-                chasing = false;
-            }
-        }
+    }
     IEnumerator StayIdle()
     {
         idleTime = Random.Range(minIdleTime, maxIdleTime);
@@ -101,9 +113,6 @@ public class MonsterAI : MonoBehaviour
         walking = true;
         randNum = Random.Range(0, destinationAmount);
         currentDestination = destinations[randNum];
-        aiAnim.ResetTrigger("idle");
-        aiAnim.ResetTrigger("chase");
-        aiAnim.SetTrigger("walk");
     }
     IEnumerator ChaseRoutine()
     {
@@ -113,8 +122,6 @@ public class MonsterAI : MonoBehaviour
         chasing = false;
         randNum = Random.Range(0, destinationAmount);
         currentDestination = destinations[randNum];
-        aiAnim.ResetTrigger("chase");
-        aiAnim.SetTrigger("walk");
     }
     //IEnumerator deathRoutine()
     //{

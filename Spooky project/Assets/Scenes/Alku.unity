@@ -833,9 +833,9 @@ MonoBehaviour:
   - {fileID: 1686151120}
   aiAnim: {fileID: 646978021}
   walkSpeed: 5
-  chaseSpeed: 3
-  minIdleTime: 1
-  maxIdleTime: 2
+  chaseSpeed: 7
+  minIdleTime: 2
+  maxIdleTime: 4
   idleTime: 0
   sightDistance: 10
   catchDistance: 2
