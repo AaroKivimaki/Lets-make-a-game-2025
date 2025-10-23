@@ -20,7 +20,7 @@ public class MonsterAI : MonoBehaviour
     Transform currentDestination;
     Vector3 dest;
 
-    int randNum, randNum2;
+    int randNum;
     public Vector3 rayCastOffSet;
 
     void Start()
@@ -57,21 +57,13 @@ public class MonsterAI : MonoBehaviour
             if (ai.remainingDistance <= ai.stoppingDistance)
             {
                 //Patrolli
-                randNum2 = Random.Range(0, 2);
-                if(randNum2 == 0)
-                {
-                    randNum = Random.Range(0, destinationAmount);
-                    currentDestination = destinations[randNum];
-                }
-                if (randNum2 == 1)
-                {
-                    //aiAnim.ResetTrigger("walk");
-                    //aiAnim.SetTrigger("idle");
-                    ai.speed = 0;
-                    StopCoroutine("StayIdle");
-                    StartCoroutine("StayIdle");
-                    walking = false;
-                }
+                aiAnim.ResetTrigger("chase");
+                aiAnim.ResetTrigger("walk");
+                aiAnim.SetTrigger("idle");
+                ai.speed = 0;
+                StopCoroutine("StayIdle");
+                StartCoroutine("StayIdle");
+                walking = false;
             }
         }
     }
@@ -81,10 +73,10 @@ public class MonsterAI : MonoBehaviour
             StopCoroutine("StayIdle");
             StopCoroutine("ChaseRoutine");
             StartCoroutine("ChaseRoutine");
-            //aiAnim.ResetTrigger("walk");
-            //aiAnim.ResetTrigger("idle");
-            //aiAnim.SetTrigger("sprint");
-            chasing = true;
+            aiAnim.ResetTrigger("walk");
+            aiAnim.ResetTrigger("idle");
+            aiAnim.SetTrigger("chase");
+        chasing = true;
         }
 
         void ChasePlayer()
@@ -95,7 +87,9 @@ public class MonsterAI : MonoBehaviour
             if (ai.remainingDistance <= catchDistance)
             {
                 //player.gameObject.SetActive(false);
-                //aiAnim.ResetTrigger("sprint");
+                aiAnim.ResetTrigger("idle");
+                aiAnim.ResetTrigger("walk");
+                aiAnim.ResetTrigger("sprint");
                 //StartCoroutine(deathRoutine());
                 chasing = false;
             }
@@ -107,6 +101,9 @@ public class MonsterAI : MonoBehaviour
         walking = true;
         randNum = Random.Range(0, destinationAmount);
         currentDestination = destinations[randNum];
+        aiAnim.ResetTrigger("idle");
+        aiAnim.ResetTrigger("chase");
+        aiAnim.SetTrigger("walk");
     }
     IEnumerator ChaseRoutine()
     {
@@ -116,8 +113,8 @@ public class MonsterAI : MonoBehaviour
         chasing = false;
         randNum = Random.Range(0, destinationAmount);
         currentDestination = destinations[randNum];
-        //aiAnim.ResetTrigger("sprint");
-        //aiAnim.SetTrigger("walk");
+        aiAnim.ResetTrigger("chase");
+        aiAnim.SetTrigger("walk");
     }
     //IEnumerator deathRoutine()
     //{
