@@ -85,7 +85,7 @@ public class MonsterAI : MonoBehaviour
         }
 
         void Walk()
-    {
+        {
             dest = currentDestination.position;
             ai.destination = dest;
             ai.speed = walkSpeed;
@@ -105,7 +105,7 @@ public class MonsterAI : MonoBehaviour
                 walking = false;
             }
 
-    }
+        }
     IEnumerator StayIdle()
     {
         idleTime = Random.Range(minIdleTime, maxIdleTime);
