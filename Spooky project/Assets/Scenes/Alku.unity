@@ -939,7 +939,7 @@ MonoBehaviour:
   maxIdleTime: 4
   idleTime: 0
   sightDistance: 10
-  catchDistance: 2
+  catchDistance: 4
   chaseTime: 0
   minChaseTime: 5
   maxChaseTime: 10
