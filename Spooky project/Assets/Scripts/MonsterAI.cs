@@ -55,57 +55,60 @@ public class MonsterAI : MonoBehaviour
             Walk();
         }
     }
-        void CaughtPlayer()
-        {
-            walking = false;
-            StopCoroutine("StayIdle");
-            StopCoroutine("ChaseRoutine");
-            StartCoroutine("ChaseRoutine");
-            chasing = true;
-        }
+    void CaughtPlayer()
+    {
+        walking = false;
+        StopCoroutine("StayIdle");
+        StopCoroutine("ChaseRoutine");
+        StartCoroutine("ChaseRoutine");
+        chasing = true;
+    }
 
-        void ChasePlayer()
-        {
-            dest = player.position;
-            ai.destination = dest;
-            ai.speed = chaseSpeed;
-            aiAnim.ResetTrigger("walk");
-            aiAnim.ResetTrigger("idle");
-            aiAnim.SetTrigger("chase");
+    void ChasePlayer()
+    {
+        dest = player.position;
+        ai.destination = dest;
+        ai.speed = chaseSpeed;
 
-            if (ai.remainingDistance <= catchDistance)
-            {
-                //player.gameObject.SetActive(false);
+        if (ai.remainingDistance <= catchDistance)
+        {
                 aiAnim.ResetTrigger("idle");
                 aiAnim.ResetTrigger("walk");
                 aiAnim.ResetTrigger("chase");
-                //StartCoroutine(deathRoutine());
-                chasing = false;
-            }
+                aiAnim.SetTrigger("punch");
         }
-
-        void Walk()
+        else
         {
-            dest = currentDestination.position;
-            ai.destination = dest;
-            ai.speed = walkSpeed;
-            aiAnim.ResetTrigger("chase");
+            aiAnim.ResetTrigger("walk");
             aiAnim.ResetTrigger("idle");
-            aiAnim.SetTrigger("walk");
-
-            if (ai.remainingDistance <= ai.stoppingDistance)
-            {
-                //Patrolli
-                aiAnim.ResetTrigger("chase");
-                aiAnim.ResetTrigger("walk");
-                aiAnim.SetTrigger("idle");
-                ai.speed = 0;
-                StopCoroutine("StayIdle");
-                StartCoroutine("StayIdle");
-                walking = false;
-            }
-
+            aiAnim.SetTrigger("chase");
         }
+    }
+
+    void Walk()
+    {
+        ai.isStopped = false;
+
+        dest = currentDestination.position;
+        ai.destination = dest;
+        ai.speed = walkSpeed;
+        aiAnim.ResetTrigger("chase");
+        aiAnim.ResetTrigger("idle");
+        aiAnim.SetTrigger("walk");
+
+        if (ai.remainingDistance <= ai.stoppingDistance)
+        {
+            //Patrolli
+            aiAnim.ResetTrigger("chase");
+            aiAnim.ResetTrigger("walk");
+            aiAnim.SetTrigger("idle");
+            ai.speed = 0;
+            StopCoroutine("StayIdle");
+            StartCoroutine("StayIdle");
+            walking = false;
+        }
+
+    }
     IEnumerator StayIdle()
     {
         idleTime = Random.Range(minIdleTime, maxIdleTime);
@@ -123,8 +126,4 @@ public class MonsterAI : MonoBehaviour
         randNum = Random.Range(0, destinationAmount);
         currentDestination = destinations[randNum];
     }
-    //IEnumerator deathRoutine()
-    //{
-
-    //}
 }
