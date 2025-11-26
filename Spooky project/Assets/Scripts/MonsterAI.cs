@@ -24,12 +24,33 @@ public class MonsterAI : MonoBehaviour
     int randNum;
     public Vector3 rayCastOffSet;
 
+    [SerializeField] private int StartingHealth;
+    public int health;
+
+    public int Health
+    {
+        get
+        {
+            return health;
+        }
+        set
+        {
+            health = value;
+            
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
     void Start()
     {
         ai.stoppingDistance = catchDistance;
         walking = true;
         randNum = Random.Range(0, destinationAmount);
         currentDestination = destinations[randNum];
+        Health = StartingHealth;
     }
 
     void Update()
