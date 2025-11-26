@@ -10,6 +10,7 @@ public class AttackStateBehaviour : StateMachineBehaviour
         {
             agent.isStopped = true;
         }
+        animator.SetBool("isPunching", true);
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -19,5 +20,6 @@ public class AttackStateBehaviour : StateMachineBehaviour
         {
             agent.isStopped = false;
         }
+        animator.SetBool("isPunching", false);
     }
 }

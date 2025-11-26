@@ -26,6 +26,7 @@ public class MonsterAI : MonoBehaviour
 
     void Start()
     {
+        ai.stoppingDistance = catchDistance;
         walking = true;
         randNum = Random.Range(0, destinationAmount);
         currentDestination = destinations[randNum];
@@ -41,9 +42,12 @@ public class MonsterAI : MonoBehaviour
         {
             if (hit.collider.gameObject.tag == "Player")
             {
-                Debug.Log("Osui");
                 CaughtPlayer();
             }
+        }
+        if (aiAnim.GetBool("isPunching"))
+        {
+            return;
         }
         if (chasing == true)
         {
@@ -70,7 +74,9 @@ public class MonsterAI : MonoBehaviour
         ai.destination = dest;
         ai.speed = chaseSpeed;
 
-        if (ai.remainingDistance <= catchDistance)
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        if (distanceToPlayer <= catchDistance)
         {
                 aiAnim.ResetTrigger("idle");
                 aiAnim.ResetTrigger("walk");
@@ -88,6 +94,7 @@ public class MonsterAI : MonoBehaviour
     void Walk()
     {
         ai.isStopped = false;
+        ai.stoppingDistance = 0;
 
         dest = currentDestination.position;
         ai.destination = dest;
@@ -106,6 +113,8 @@ public class MonsterAI : MonoBehaviour
             StopCoroutine("StayIdle");
             StartCoroutine("StayIdle");
             walking = false;
+
+            ai.stoppingDistance = catchDistance;
         }
 
     }
