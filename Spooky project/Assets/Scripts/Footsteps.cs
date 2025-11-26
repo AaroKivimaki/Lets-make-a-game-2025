@@ -2,19 +2,12 @@ using UnityEngine;
 
 public class Footsteps : MonoBehaviour
 {
-    AudioSource audioSource;
-    ParticleSystem footstepFx;
+    public AudioSource audioSource;
     public AudioClip[] footstepSounds;
 
     void Start()
     {
         
-    }
-
-    void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
-        footstepFx = GetComponent<ParticleSystem>();
     }
 
     void Update()
