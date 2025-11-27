@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.VFX;
 
 public class Gun : MonoBehaviour
 {
@@ -11,13 +12,14 @@ public class Gun : MonoBehaviour
 
     private Camera fpsCam;
     private WaitForSeconds shotDuration = new WaitForSeconds(.07f);
-    private AudioSource gunAudio;
-    private LineRenderer laserLine;
+    public AudioSource gunAudio;
+    public AudioClip clip;
+    //private LineRenderer laserLine;
+    public VisualEffect muzzleFLash;
 
     void Start()
     {
-        laserLine = GetComponent<LineRenderer>();
-        gunAudio = GetComponent<AudioSource>();
+        //laserLine = GetComponent<LineRenderer>();
         fpsCam = GetComponentInParent<Camera>();
     }
 
@@ -30,24 +32,32 @@ public class Gun : MonoBehaviour
             Vector3 rayOrigin = fpsCam.ViewportToWorldPoint(new Vector3(0.5f,  0.5f, 0));
             RaycastHit hit;
 
-            laserLine.SetPosition(0, gunEnd.position);
+            //laserLine.SetPosition(0, gunEnd.position);
+
+            muzzleFLash.Play();
 
             if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, weaponRange))
             {
-                laserLine.SetPosition(1, hit.point);
+                //laserLine.SetPosition(1, hit.point);
+                MonsterAI health = hit.collider.GetComponent<MonsterAI>();
+
+                if (health != null)
+                {
+                    health.Damage(gunDamage);
+                }
             }
-            else
-            {
-                laserLine.SetPosition(1, rayOrigin + (fpsCam.transform.forward * weaponRange));
-            }
+            //else
+            //{
+            //laserLine.SetPosition(1, rayOrigin + (fpsCam.transform.forward * weaponRange));
+            //}
         }
     }
 
     private IEnumerator ShotEffect()
     {
-        gunAudio.Play();
-        laserLine.enabled = true;
+        gunAudio.PlayOneShot(clip);
+        //laserLine.enabled = true;
         yield return shotDuration;
-        laserLine.enabled = false;
+        //laserLine.enabled = false;
     }
 }

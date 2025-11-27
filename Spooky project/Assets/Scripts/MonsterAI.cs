@@ -24,25 +24,7 @@ public class MonsterAI : MonoBehaviour
     int randNum;
     public Vector3 rayCastOffSet;
 
-    [SerializeField] private int StartingHealth;
-    public int health;
-
-    public int Health
-    {
-        get
-        {
-            return health;
-        }
-        set
-        {
-            health = value;
-            
-            if (health <= 0)
-            {
-                Destroy(gameObject);
-            }
-        }
-    }
+    public int currentHealth = 1;
 
     void Start()
     {
@@ -50,7 +32,6 @@ public class MonsterAI : MonoBehaviour
         walking = true;
         randNum = Random.Range(0, destinationAmount);
         currentDestination = destinations[randNum];
-        Health = StartingHealth;
     }
 
     void Update()
@@ -78,6 +59,15 @@ public class MonsterAI : MonoBehaviour
         if (walking == true)
         {
             Walk();
+        }
+    }
+
+    public void Damage(int damageAmount)
+    {
+        currentHealth -= damageAmount;
+        if (currentHealth <= 0)
+        {
+            gameObject.SetActive(false);
         }
     }
     void CaughtPlayer()
