@@ -212,13 +212,9 @@ Transform:
   m_Children:
   - {fileID: 61922033}
   - {fileID: 1686151120}
+  - {fileID: 587577020}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &339755234 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1993446740634094287, guid: 4d047809aa0c90645aa9e437f4a2584f, type: 3}
-  m_PrefabInstance: {fileID: 966385189645354057}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &455180693
 GameObject:
   m_ObjectHideFlags: 0
@@ -1573,9 +1569,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Ovi
   ObjectInteractMessage: 
   IsOpen: 1
-  Speed: 1
+  Speed: 0.2
   SlideDirection: {x: 0, y: 0, z: -1}
-  SlideAmount: 1.9
+  SlideAmount: 0.5
 --- !u!1 &1178217702
 GameObject:
   m_ObjectHideFlags: 0
@@ -2355,7 +2351,6 @@ Transform:
   - {fileID: 1178217703}
   - {fileID: 2039138687}
   - {fileID: 681630300}
-  - {fileID: 339755234}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2039138686
