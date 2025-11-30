@@ -1,11 +1,13 @@
-using JetBrains.Annotations;
 using UnityEngine;
+using System.Collections;
 
 public class ChaseMusic : MonoBehaviour
 {
     private MonsterAI parentScript;
     public AudioSource audioSource;
     public AudioClip chase;
+
+    private bool track = false;
     void Start()
     {
     }
@@ -17,13 +19,30 @@ public class ChaseMusic : MonoBehaviour
 
     void Update()
     {
-        if (parentScript.chasing)
+        if (parentScript.chasing && track == false)
         {
             audioSource.PlayOneShot(chase);
-        } else
+            track = true;
+        }
+        if (parentScript.chasing == false && track == true)
         {
-            audioSource.Stop();
+            StartCoroutine(FadeOut(audioSource, 1f));
+            track = false;
         }
         
+    }
+    public static IEnumerator FadeOut(AudioSource audioSource, float FadeTime)
+    {
+        float startVolume = audioSource.volume;
+
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
+
+            yield return null;
+        }
+
+        audioSource.Stop();
+        audioSource.volume = startVolume;
     }
 }
