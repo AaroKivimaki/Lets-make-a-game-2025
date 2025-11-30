@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Net;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
@@ -67,7 +66,11 @@ public class MonsterAI : MonoBehaviour
         currentHealth -= damageAmount;
         if (currentHealth <= 0)
         {
-            gameObject.SetActive(false);
+            aiAnim.ResetTrigger("idle");
+            aiAnim.ResetTrigger("walk");
+            aiAnim.ResetTrigger("chase");
+            aiAnim.ResetTrigger("punch");
+            aiAnim.SetTrigger("dying");
         }
     }
     void CaughtPlayer()
@@ -127,8 +130,8 @@ public class MonsterAI : MonoBehaviour
 
             ai.stoppingDistance = catchDistance;
         }
-
     }
+
     IEnumerator StayIdle()
     {
         idleTime = Random.Range(minIdleTime, maxIdleTime);
