@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.VFX;
+using static PauseMenu;
 
 public class Gun : MonoBehaviour
 {
@@ -25,6 +26,11 @@ public class Gun : MonoBehaviour
 
     void Update()
     {
+        if (GameIsPaused)
+        {
+            return;
+        }
+
         if (Input.GetButtonDown("Fire1"))
         {
             StartCoroutine(ShotEffect());
