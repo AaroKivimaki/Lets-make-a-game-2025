@@ -7,10 +7,26 @@ using UnityEngine.Audio;
 public class SettingsMenu : MonoBehaviour
 {
     public AudioMixer audioMixer;
+    public float volumeValue;
+    public Slider volumeSlider;
+    public Toggle fullscreenToggle;
     public Dropdown resolutionDropdown;
     Resolution[] resolutions;
 
     void Start(){
+
+        int isFullscreenInt = PlayerPrefs.GetInt("IsFullscreen", 1); 
+        bool isFullscreen = (isFullscreenInt == 1);
+        
+        Screen.fullScreen = isFullscreen;
+        if (fullscreenToggle != null)
+        {
+            fullscreenToggle.isOn = isFullscreen;
+        }
+
+
+        volumeSlider.value = PlayerPrefs.GetFloat("volume");
+
         
         resolutions = Screen.resolutions;
 
@@ -19,6 +35,8 @@ public class SettingsMenu : MonoBehaviour
         List<string> options = new List<string>();
 
         int currentResolutionIndex = 0;
+
+        int savedResolutionIndex = PlayerPrefs.GetInt("ResolutionIndex", 0);
 
         for (int i = 0; i < resolutions.Length; i++)
         {
@@ -32,25 +50,39 @@ public class SettingsMenu : MonoBehaviour
         }
 
         resolutionDropdown.AddOptions(options);
-        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.value = savedResolutionIndex;
+        SetResolution(savedResolutionIndex);
         resolutionDropdown.RefreshShownValue();
 
+    }
+
+    public void Update()
+    {
+        audioMixer.SetFloat("volume", volumeValue);
+        PlayerPrefs.SetFloat("volume",volumeValue);
     }
 
     public void SetResolution(int resolutionIndex){
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+
+        PlayerPrefs.SetInt("ResolutionIndex", resolutionIndex);
+        PlayerPrefs.Save();
     }
 
     public void SetVolume(float volume) {
 
-        audioMixer.SetFloat("volume", volume);
+        volumeValue = volume;
 
     }
 
     public void SetFullscreen(bool isFullscreen){
 
         Screen.fullScreen = isFullscreen;
+
+        int isFullscreenInt = isFullscreen ? 1 : 0;
+        PlayerPrefs.SetInt("IsFullscreen", isFullscreenInt);
+        PlayerPrefs.Save();
 
     }
 }
