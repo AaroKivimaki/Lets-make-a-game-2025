@@ -9,6 +9,7 @@ public class DyingStateBehaviour : StateMachineBehaviour
         if (agent != null)
         {
             agent.isStopped = true;
+            agent.speed = 0;
         }
         animator.SetBool("isDying", true);
     }
