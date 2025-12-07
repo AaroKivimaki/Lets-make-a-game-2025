@@ -1145,6 +1145,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: 410bf1fe2c38e9343928c7a73adca007, type: 3}
       insertIndex: -1
       addedObject: {fileID: 646978025}
+    - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: 410bf1fe2c38e9343928c7a73adca007, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 646978027}
   m_SourcePrefab: {fileID: 100100000, guid: 410bf1fe2c38e9343928c7a73adca007, type: 3}
 --- !u!4 &646978020 stripped
 Transform:
@@ -1391,6 +1394,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChaseMusic
   audioSource: {fileID: 646978025}
   chase: {fileID: 8300000, guid: 10546d9649879d14e8277d84c34d122e, type: 3}
+--- !u!114 &646978027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646978022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82189f17aeab7124abcaf528a277a67e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  attackDistance: 1
+  attackRadius: 1
+  damageAmount: 1
 --- !u!1 &681630299
 GameObject:
   m_ObjectHideFlags: 0
@@ -3151,6 +3169,7 @@ GameObject:
   - component: {fileID: 1229766866}
   - component: {fileID: 1229766867}
   - component: {fileID: 1229766868}
+  - component: {fileID: 1229766869}
   m_Layer: 10
   m_Name: Pelaaja
   m_TagString: Player
@@ -3223,6 +3242,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   orientation: {fileID: 2006854881}
+--- !u!114 &1229766869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1229766864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930662eed62d9754b8322fb7625ac3dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  Health: 2
 --- !u!1 &1337422474
 GameObject:
   m_ObjectHideFlags: 0
