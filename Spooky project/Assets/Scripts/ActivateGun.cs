@@ -6,11 +6,19 @@ public class ActivateGun : MonoBehaviour
     public bool equipped;
     public static bool slotFull;
     public GameObject shotgun;
+    private AmbienceMusic ambienceMusic;
+    public AudioClip music;
     
 
     public Transform player;
     void Start()
     {
+    }
+
+    void Awake()
+    {
+        GameObject game = GameObject.Find("musicBox");
+        ambienceMusic = game.GetComponent<AmbienceMusic>();
     }
 
     void Update()
@@ -20,6 +28,8 @@ public class ActivateGun : MonoBehaviour
         {
             shotgun.SetActive(true);
             gameObject.SetActive(false);
+            ambienceMusic.audioSource.Stop();
+            ambienceMusic.audioSource.PlayOneShot(music);
         }
 
     }

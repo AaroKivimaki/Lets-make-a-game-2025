@@ -50,6 +50,10 @@ public class MonsterAI : MonoBehaviour
         {
             return;
         }
+        if (aiAnim.GetBool("isDying"))
+        {
+            return;
+        }
         if (chasing == true)
         {
             ChasePlayer();

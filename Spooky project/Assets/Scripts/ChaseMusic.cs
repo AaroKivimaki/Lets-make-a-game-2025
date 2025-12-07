@@ -4,6 +4,7 @@ using System.Collections;
 public class ChaseMusic : MonoBehaviour
 {
     private MonsterAI parentScript;
+    private AmbienceMusic ambienceMusic;
     public AudioSource audioSource;
     public AudioClip chase;
 
@@ -14,13 +15,17 @@ public class ChaseMusic : MonoBehaviour
 
     void Awake()
     {
-       parentScript = transform.parent.GetComponent<MonsterAI>();
+        parentScript = transform.parent.GetComponent<MonsterAI>();
+        GameObject game = GameObject.Find("musicBox");
+        ambienceMusic = game.GetComponent<AmbienceMusic>();
+
     }
 
     void Update()
     {
         if (parentScript.chasing && track == false)
         {
+            ambienceMusic.trackMusic = true;
             audioSource.PlayOneShot(chase);
             track = true;
         }
@@ -28,6 +33,7 @@ public class ChaseMusic : MonoBehaviour
         {
             StartCoroutine(FadeOut(audioSource, 1f));
             track = false;
+            ambienceMusic.trackMusic = false;
         }
         
     }
