@@ -3,8 +3,8 @@ using System.Collections;
 
 public class EnemyAttack : MonoBehaviour
 {
-    public float attackDistance = 1.5f; 
-    public float attackRadius = 0.5f;
+    public float attackDistance = 3f; 
+    public float attackRadius = 1.5f;
     public int damageAmount = 1;
 
     public void Attack()
@@ -15,18 +15,13 @@ public class EnemyAttack : MonoBehaviour
 
         foreach (var hitCollider in hitColliders)
         {
-            // TÄRKEÄ MUUTOS: Etsi komponentti vanhemmista
-            // Koska PlayerHealth on juuressa (vanhemmassa) ja Collider lapsessa.
             PlayerHealth playerHealth = hitCollider.GetComponentInParent<PlayerHealth>();
 
             if (playerHealth != null)
             {
                 playerHealth.TakeDamge(damageAmount);
-                Debug.Log("Osuma rekisteröity ja vahinko annettu juuriobjektiin!");
-                return; // Osuu vain kerran yhtä iskua kohden
+                return;
             }
         }
-        
-        Debug.Log("Isku ohi!");
     }
 }
