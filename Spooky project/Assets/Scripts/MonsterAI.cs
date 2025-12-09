@@ -25,6 +25,8 @@ public class MonsterAI : MonoBehaviour
 
     public int currentHealth = 1;
 
+    public WinnerScreen gameEndController;
+
     void Start()
     {
         ai.stoppingDistance = catchDistance;
@@ -38,7 +40,7 @@ public class MonsterAI : MonoBehaviour
         Vector3 direction = (player.position - transform.position);
         RaycastHit hit;
 
-        //Löydä pelaaja
+        //Lï¿½ydï¿½ pelaaja
         if (Physics.Raycast(transform.position + rayCastOffSet, direction, out hit, sightDistance))
         {
             if (hit.collider.gameObject.tag == "Player")
@@ -75,6 +77,8 @@ public class MonsterAI : MonoBehaviour
             aiAnim.ResetTrigger("chase");
             aiAnim.ResetTrigger("punch");
             aiAnim.SetTrigger("dying");
+
+            enabled = false; 
         }
     }
     void CaughtPlayer()
@@ -96,10 +100,14 @@ public class MonsterAI : MonoBehaviour
 
         if (distanceToPlayer <= catchDistance)
         {
-                aiAnim.ResetTrigger("idle");
-                aiAnim.ResetTrigger("walk");
-                aiAnim.ResetTrigger("chase");
-                aiAnim.SetTrigger("punch");
+            //LisÃ¤tty varmistamaan napakka pysÃ¤hdys t:Lauri
+            ai.isStopped = true; 
+            ai.velocity = Vector3.zero;
+
+            aiAnim.ResetTrigger("idle");
+            aiAnim.ResetTrigger("walk");
+            aiAnim.ResetTrigger("chase");
+            aiAnim.SetTrigger("punch");
         }
         else
         {
