@@ -27,7 +27,7 @@ public class InteraktioControllerV2 : MonoBehaviour
         if(Physics.Raycast(playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f)), transform.forward, out RaycastHit hit, interactionDistance))
         {
             var _item = hit.collider.GetComponent<ItemScript>();
-            if(item != null)
+            if(_item != null)
             {
                 item = _item;
 
@@ -47,7 +47,7 @@ public class InteraktioControllerV2 : MonoBehaviour
     {
         if (Input.GetKeyDown(interactionKey))
         {
-            item.ObjectInteraction();
+              item.ObjectInteraction();
         }
     }
 
