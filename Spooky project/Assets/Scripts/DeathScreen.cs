@@ -12,6 +12,7 @@ public class DeathScreen : MonoBehaviour
 
     public void ActivateDeathScreen()
     {
+        GameIsPaused = true;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         deathScreenUI.SetActive(true);

@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/LoadingScene.unity
     guid: 9acbe13163d32b641a7054074a038eb5
   - enabled: 1
+    path: Assets/Scenes/Mappi.unity
+    guid: 9355580f69b1ce1499e158d865772d50
+  - enabled: 0
     path: Assets/Scenes/Alku.unity
     guid: b1e244bff94b7384982372bf7b322e30
   m_configObjects:
