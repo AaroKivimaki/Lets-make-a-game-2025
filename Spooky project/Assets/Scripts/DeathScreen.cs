@@ -8,6 +8,7 @@ public class DeathScreen : MonoBehaviour
     public static bool GameIsPaused = false;
 
     public GameObject deathScreenUI;
+    private const int LOADING_SCENE_INDEX = 1;
 
     public void ActivateDeathScreen()
     {
@@ -21,14 +22,17 @@ public class DeathScreen : MonoBehaviour
     public void Retry()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        LoadingScreenManager.SceneTransfer.SceneToLoad = currentSceneIndex;
+
+        SceneManager.LoadScene(LOADING_SCENE_INDEX);
     }
 
     public void LoadMenu()
 
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 
     public void QuitGame()

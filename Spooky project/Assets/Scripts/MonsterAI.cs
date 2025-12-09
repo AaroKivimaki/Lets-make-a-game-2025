@@ -25,6 +25,8 @@ public class MonsterAI : MonoBehaviour
 
     public int currentHealth = 1;
 
+    public WinnerScreen gameEndController;
+
     void Start()
     {
         ai.stoppingDistance = catchDistance;
@@ -75,6 +77,11 @@ public class MonsterAI : MonoBehaviour
             aiAnim.ResetTrigger("chase");
             aiAnim.ResetTrigger("punch");
             aiAnim.SetTrigger("dying");
+
+            if (gameEndController != null)
+            {
+                gameEndController.ActivateWinScreen();
+            }
         }
     }
     void CaughtPlayer()

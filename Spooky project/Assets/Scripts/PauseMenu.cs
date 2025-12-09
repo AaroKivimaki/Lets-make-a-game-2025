@@ -8,6 +8,7 @@ public class PauseMenu : MonoBehaviour
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
+    
 
     void Update()
     {
@@ -45,12 +46,11 @@ public class PauseMenu : MonoBehaviour
 
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 
     public void QuitGame()
     {
-        Debug.Log("Quitting game...");
         Application.Quit();
     }
 }
