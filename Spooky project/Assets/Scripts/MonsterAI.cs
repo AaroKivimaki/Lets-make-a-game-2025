@@ -78,10 +78,7 @@ public class MonsterAI : MonoBehaviour
             aiAnim.ResetTrigger("punch");
             aiAnim.SetTrigger("dying");
 
-            if (gameEndController != null)
-            {
-                gameEndController.ActivateWinScreen();
-            }
+            enabled = false; 
         }
     }
     void CaughtPlayer()

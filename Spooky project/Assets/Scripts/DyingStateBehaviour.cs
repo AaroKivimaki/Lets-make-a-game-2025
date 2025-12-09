@@ -22,6 +22,14 @@ public class DyingStateBehaviour : StateMachineBehaviour
         {
             gameObject.SetActive(false);
         }
+
+        WinnerScreen gameEndController = Object.FindFirstObjectByType<WinnerScreen>();
+
+        if (gameEndController != null)
+        {
+            gameEndController.ActivateWinScreen();
+        }
+
         animator.SetBool("isDying", false);
     }
 
