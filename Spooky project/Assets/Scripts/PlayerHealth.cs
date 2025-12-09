@@ -10,7 +10,7 @@ public class PlayerHealth : MonoBehaviour
     private Vignette vignette;
     public DeathScreen deathScreenController;
     
-    public float damageVignetteIntensity = 0.4f;
+    public float damageVignetteIntensity = 0.6f;
     private bool isDead = false;
 
 
