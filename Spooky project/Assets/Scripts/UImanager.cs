@@ -5,7 +5,7 @@ public class UImanager : MonoBehaviour
 {
     [Header("UI Elements")]
     [SerializeField] private Transform keyPanel;
-    [SerializeField] private GameObject keyImagePrefab;
+    [SerializeField] private GameObject KeyImagePrefab;
 
     private Dictionary<AvainToiminto, GameObject> keyImages = new Dictionary<AvainToiminto, GameObject>();
     public static UImanager Instance { get; private set; }
@@ -26,7 +26,7 @@ public class UImanager : MonoBehaviour
     {
         if (!keyImages.ContainsKey(avain))
         {
-            GameObject keyImage = Instantiate(keyImagePrefab, keyPanel);
+            GameObject keyImage = Instantiate(KeyImagePrefab, keyPanel);
             keyImage.GetComponent<Image>().sprite = avain.avainSprite;
             keyImages[avain] = keyImage;
         }
